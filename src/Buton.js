@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 
-const Buton = ({kutuStil, metinStil, metin, komut}) => {
+const Buton = ({ kutuStil, metinStil, metin, komut }) => {
     return (
         <TouchableOpacity onPress={komut}>
             <View style={[stiller.sekil, kutuStil]}>
@@ -16,13 +16,13 @@ const stiller = StyleSheet.create({
         width: 130,
         height: 70,
         backgroundColor: 'black',
-        justifyContent:'center',
-        alignItems:'center'
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     metin: {
         color: 'white',
         fontSize: 25,
-        fontWeight:'bold'
+        fontWeight: 'bold'
     }
 })
 

@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, TextInput, View, Image} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, TextInput, View, Image } from 'react-native';
 import Buton from './Buton';
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorText, setErrorText] = useState('');
@@ -11,7 +11,7 @@ const Login = ({navigation}) => {
   const loginHandler = async () => {
     const res = await fetch('https://dummyjson.com/auth/login', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         username: username,
         password: password,

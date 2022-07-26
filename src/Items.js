@@ -1,15 +1,15 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 import ItemCard from './ItemCard';
 
-const Items = ({navigation}) => {
-    useEffect(() => {
-        fetch('https://dummyjson.com/products')
+const Items = ({ navigation }) => {
+  useEffect(() => {
+    fetch('https://dummyjson.com/products')
       .then(res => res.json())
       .then(res => setProducts(res.products))
-    }, [products]);
-    const [products, setProducts] = useState([]);
-    useEffect(() => {
+  }, [products]);
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
     const loggedIn = false;
     if (!loggedIn) {
       navigation.navigate('Login');
@@ -18,7 +18,7 @@ const Items = ({navigation}) => {
   return (
     <FlatList
       data={products}
-      renderItem={({item}) => (
+      renderItem={({ item }) => (
         <ItemCard
           itemName={item.title}
           brand={item.brand}
