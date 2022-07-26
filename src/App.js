@@ -9,13 +9,14 @@ import Login from "./Login";
 const Stack = createNativeStackNavigator();
 
 const a = 1;
+const b = 2;
 
-const App = ({navigation}) => {
+const App = ({ navigation }) => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Items" component={Items}/>
-        <Stack.Screen name="Login" component={Login}/>
+        <Stack.Screen name="Items" component={Items} />
+        <Stack.Screen name="Login" component={Login} />
       </Stack.Navigator>
     </NavigationContainer>
   );
