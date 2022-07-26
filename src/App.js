@@ -8,7 +8,7 @@ import Login from "./Login";
 
 const Stack = createNativeStackNavigator();
 
-const aasd = 20;
+const ssss = 20;
 
 const App = ({ navigation }) => {
   return (
