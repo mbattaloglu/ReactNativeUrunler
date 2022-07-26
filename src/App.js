@@ -8,9 +8,6 @@ import Login from "./Login";
 
 const Stack = createNativeStackNavigator();
 
-const a = 1;
-const b = 2;
-
 const App = ({ navigation }) => {
   return (
     <NavigationContainer>
