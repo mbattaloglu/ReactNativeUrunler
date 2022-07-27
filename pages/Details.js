@@ -1,30 +1,31 @@
 import React from "react";
 import { View, StyleSheet, Text, Image } from "react-native";
 
-import MyButton from "./MyButton";
+import MyButton from "../components/MyButton";
 
-const Details = ({ logo, rating, title, price, brand, category, stock, discount, description }) => {
+const Details = ({ navigation, route }) => {
+
+    const {item} = route.params;
+
     return (
-
         <View style={styles.container}>
-
             {/* Header */}
             <View style={styles.headerLine}>
                 <View style={{ alignItems: 'center' }}>
                     <Image
                         style={styles.logo}
-                        source={{ uri: logo }}
+                        source={{ uri: item.thumbnail }}
                     />
-                    <Text style={styles.rating}>{rating}</Text>
+                    <Text style={styles.rating}>{item.rating}</Text>
 
                 </View>
 
                 <View style={styles.headerText}>
-                    <Text style={styles.title}>{title}</Text>
+                    <Text style={styles.title}>{item.title}</Text>
                     <View style={styles.stick} />
                     <View style={styles.priceLine}>
-                        <Text style={styles.price}>{price}$</Text>
-                        <Text style={styles.countPrice}>{parseInt(price * (100 - discount) / 100)}$</Text>
+                        <Text style={styles.price}>{item.price}$</Text>
+                        <Text style={styles.countPrice}>{parseInt(item.price * (100 - item.discountPercentage) / 100)}$</Text>
                     </View>
                 </View>
 
@@ -32,11 +33,11 @@ const Details = ({ logo, rating, title, price, brand, category, stock, discount,
 
             {/* Other */}
             <View style={styles.otherLine}>
-                <Texts main={"Brand"} text={brand} />
-                <Texts main={"Category"} text={category} />
-                <Texts main={"Stock"} text={stock} />
-                <Texts main={"Discount Percentage"} text={discount} />
-                <Texts main={"Description"} text={description} />
+                <Texts main={"Brand"} text={item.brand} />
+                <Texts main={"Category"} text={item.category} />
+                <Texts main={"Stock"} text={item.stock} />
+                <Texts main={"Discount Percentage"} text={item.discountPercentage} />
+                <Texts main={"Description"} text={item.description} />
             </View>
 
             {/* Buttons */}
@@ -47,7 +48,9 @@ const Details = ({ logo, rating, title, price, brand, category, stock, discount,
                 />
                 <MyButton text={"Edit"}
                     boxStyle={{ backgroundColor: 'darkgray', height: 50 }}
-                    textStyle={{ color: 'black' }} />
+                    textStyle={{ color: 'black' }} 
+                    command={() => navigation.navigate('DetailsEdit', {item})}
+                    />
 
             </View>
 

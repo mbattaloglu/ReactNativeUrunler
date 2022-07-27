@@ -11,7 +11,8 @@ const List = ({ navigation }) => {
         fetch('https://dummyjson.com/products')
             .then(res => res.json())
             .then(res => setProducts(res.products))
-    }, [products]);
+    }, []);
+
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
@@ -27,10 +28,10 @@ const List = ({ navigation }) => {
                 <InfoBox
                     itemName={item.title}
                     brand={item.brand}
-                    stock={["Stock: ",item.stock]}
+                    stock={["Stock: ", item.stock]}
                     price={[item.price, "$"]}
                     logo={item.thumbnail}
-                    command={() => navigation.navigate("DetailsScreen", {item})}
+                    command={() => navigation.navigate("Details", { item })}
                 />
             )}
 

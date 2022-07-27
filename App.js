@@ -4,8 +4,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import List from "./pages/List";
-import DetailsScreen from "./pages/DetailsScreen";
+import Details from "./pages/Details";
 import Login from "./pages/Login";
+import DetailsEdit from "./pages/DetailsEdit";
 
 const Yigin = createNativeStackNavigator();
 
@@ -16,7 +17,8 @@ const App = ({navigation}) => {
         headerShown:false
       })}>
         <Yigin.Screen name="List" component={List}/>
-        <Yigin.Screen name="DetailsScreen" component={DetailsScreen}/>
+        <Yigin.Screen name="Details" component={Details}/>
+        <Yigin.Screen name="DetailsEdit" component={DetailsEdit}/>
         <Yigin.Screen name="Login" component={Login}/>
       </Yigin.Navigator>
     </NavigationContainer>
