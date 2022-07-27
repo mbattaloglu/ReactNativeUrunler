@@ -22,7 +22,7 @@ const stiller = StyleSheet.create({
     metin: {
         color: 'white',
         fontSize: 25,
-        fontWeight:'bold'
+        //fontWeight:'bold'
     }
 })
 

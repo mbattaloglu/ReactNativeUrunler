@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Liste from "./sayfalar/Liste";
 import GirisYap from "./sayfalar/GirisYap";
+import Details from "./sayfalar/Details";
 
 const Yigin = createNativeStackNavigator();
 
@@ -14,6 +15,7 @@ const App = ({navigation}) => {
       <Yigin.Navigator screenOptions={() => ({
         headerShown:false
       })}>
+        <Yigin.Screen name="Details" component={Details}/>
         <Yigin.Screen name="Liste" component={Liste}/>
         <Yigin.Screen name="GirisYap" component={GirisYap}/>
       </Yigin.Navigator>
