@@ -1,35 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, ScrollView, FlatList } from "react-native";
 import { useNavigation } from '@react-navigation/native';
-import GirisYap from "./GirisYap";
-import BilgiKutu from "../bilesenler/BilgiKutu";
+
+import InfoBox from "../components/InfoBox";
 
 
 
-const Liste = ({ navigation }) => {
+const List = ({ navigation }) => {
     useEffect(() => {
         fetch('https://dummyjson.com/products')
             .then(res => res.json())
-            .then(res => belirleUrunler(res.products)).then(res => console.log(urunler.length))
-    }, [urunler]);
-    const [urunler, belirleUrunler] = useState([]);
+            .then(res => setProducts(res.products))
+    }, [products]);
+    const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        const Girdimi = false;
-        if (!Girdimi) {
-            navigation.navigate("GirisYap")
+        const IsLoggined = false;
+        if (!IsLoggined) {
+            navigation.navigate("Login")
         }
     }, []);
     return (
         <FlatList
-            data={urunler}
+            data={products}
             renderItem={({ item }) => (
-                <BilgiKutu
+                <InfoBox
                     itemName={item.title}
                     brand={item.brand}
-                    stock={["Stok: ",item.stock]}
+                    stock={["Stock: ",item.stock]}
                     price={[item.price, "$"]}
                     logo={item.thumbnail}
+                    command={() => navigation.navigate("DetailsScreen", {item})}
                 />
             )}
 
@@ -37,4 +38,4 @@ const Liste = ({ navigation }) => {
     )
 }
 
-export default Liste;
+export default List;

@@ -1,9 +1,9 @@
 import React from "react";
 import { View, StyleSheet, Text, Image } from "react-native";
 
-import Buton from "../bilesenler/Buton";
+import MyButton from "./MyButton";
 
-const Details = ({logo, rating, price, brand, category, stock, discount, description}) => {
+const Details = ({ logo, rating, title, price, brand, category, stock, discount, description }) => {
     return (
 
         <View style={styles.container}>
@@ -13,18 +13,18 @@ const Details = ({logo, rating, price, brand, category, stock, discount, descrip
                 <View style={{ alignItems: 'center' }}>
                     <Image
                         style={styles.logo}
-                        source={{ uri: 'https://dummyjson.com/image/i/products/1/thumbnail.jpg' }}
+                        source={{ uri: logo }}
                     />
-                    <Text style={styles.rating}>4.69</Text>
+                    <Text style={styles.rating}>{rating}</Text>
 
                 </View>
 
                 <View style={styles.headerText}>
-                    <Text style={styles.title}>iPhone 9</Text>
+                    <Text style={styles.title}>{title}</Text>
                     <View style={styles.stick} />
                     <View style={styles.priceLine}>
-                        <Text style={styles.price}>549$</Text>
-                        <Text style={styles.countPrice}>{parseInt(549 * (100 - 12.96) / 100)}$</Text>
+                        <Text style={styles.price}>{price}$</Text>
+                        <Text style={styles.countPrice}>{parseInt(price * (100 - discount) / 100)}$</Text>
                     </View>
                 </View>
 
@@ -32,23 +32,23 @@ const Details = ({logo, rating, price, brand, category, stock, discount, descrip
 
             {/* Other */}
             <View style={styles.otherLine}>
-                <Texts brand={"Brand"} text={"Apple"}/>
-                <Texts brand={"Category"} text={"smartphones"}/>
-                <Texts brand={"Stock"} text={"94"}/>
-                <Texts brand={"Discount"} text={"12.96"}/>
-                <Texts brand={"Description"} text={"An apple mobile which is nothing like apple"}/>
+                <Texts main={"Brand"} text={brand} />
+                <Texts main={"Category"} text={category} />
+                <Texts main={"Stock"} text={stock} />
+                <Texts main={"Discount Percentage"} text={discount} />
+                <Texts main={"Description"} text={description} />
             </View>
 
             {/* Buttons */}
-            <View style= {styles.buttonsLine}>
-                <Buton metin={"Sil"} 
-                kutuStil={{backgroundColor: 'darkgray', height:50}}
-                metinStil={{color:'black'}}
+            <View style={styles.buttonsLine}>
+                <MyButton text={"Delete"}
+                    boxStyle={{ backgroundColor: 'darkgray', height: 50 }}
+                    textStyle={{ color: 'black' }}
                 />
-                <Buton metin={"Düzenle"} 
-                kutuStil={{backgroundColor: 'darkgray', height:50}}
-                metinStil={{color:'black'}}/>
-                
+                <MyButton text={"Edit"}
+                    boxStyle={{ backgroundColor: 'darkgray', height: 50 }}
+                    textStyle={{ color: 'black' }} />
+
             </View>
 
         </View>
@@ -56,11 +56,11 @@ const Details = ({logo, rating, price, brand, category, stock, discount, descrip
     )
 }
 
-const Texts = ({brand, text}) => {
+const Texts = ({ main, text }) => {
     return (
-        <View style={{ flexDirection: 'row', marginBottom:20}}>
-            <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold' }}>{brand}: </Text>
-            <Text style={{ color: 'black', fontSize: 20, flex:1 }}>{text}</Text>
+        <View style={{ flexDirection: 'row', marginBottom: 20 }}>
+            <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold' }}>{main}: </Text>
+            <Text style={{ color: 'black', fontSize: 20, flex: 1 }}>{text}</Text>
         </View>
     )
 }
@@ -81,7 +81,8 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 30,
         color: 'black',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        textAlign:'center'
     },
     priceLine: {
         flexDirection: 'row',
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
     headerLine: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom:25,
+        marginBottom: 25,
     },
     headerText: {
         flex: 1,
@@ -115,12 +116,12 @@ const styles = StyleSheet.create({
         width: 150
     },
     otherLine: {
-        height:300,
-        marginBottom:25,
+        height: 300,
+        marginBottom: 25,
     },
     buttonsLine: {
-        flexDirection:'row',
-        justifyContent:'space-between'
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     }
 })
 

@@ -3,12 +3,16 @@ import {
     StyleSheet,
     Text,
     View,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native';
 
-const BilgiKutu = ({itemName, brand, stock, price, logo}) => {
+const InfoBox = ({ itemName, brand, stock, price, logo, command }) => {
     return (
-        <View style= {{flex:1, alignItems:'center', justifyContent:'center'}}>
+        <TouchableOpacity
+            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+            onPress={command}
+        >
             <View style={styles.itemCard}>
                 <Image style={styles.square}
                     source={{ uri: logo }} />
@@ -21,7 +25,7 @@ const BilgiKutu = ({itemName, brand, stock, price, logo}) => {
                     <Text>{price}</Text>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 }
 
@@ -30,7 +34,6 @@ const styles = StyleSheet.create({
     square: {
         width: 50,
         height: 50,
-        backgroundColor: "#00ff00",
         borderRadius: 5
     },
     itemCard: {
@@ -53,4 +56,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default BilgiKutu;
+export default InfoBox;

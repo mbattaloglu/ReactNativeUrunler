@@ -5,18 +5,19 @@ import {
     TextInput,
     View,
 } from 'react-native';
-import Buton from '../bilesenler/Buton';
-import Liste from './Liste';
 
-const GirisYap = ({ navigation }) => {
+import MyButton from '../components/MyButton';
+import List from './List';
+
+const Login = ({ navigation }) => {
     return (
         <View style={styles.body}>
             <Text style={styles.title}>Log In</Text>
             <View>
-                <TextInput style={styles.input} placeholder=" Kullanıcı Adı"></TextInput>
+                <TextInput style={styles.input} placeholder=" User Name"></TextInput>
             </View>
-            <TextInput style={styles.input} placeholder=" Şifre" secureTextEntry></TextInput>
-            <Buton metin={"Giriş Yap"} komut={() => navigation.navigate("Liste")} />
+            <TextInput style={styles.input} placeholder=" Password" secureTextEntry></TextInput>
+            <MyButton text={"Login"} command={() => navigation.navigate("List")} />
         </View>
     );
 };
@@ -42,4 +43,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default GirisYap;
+export default Login;

@@ -3,9 +3,9 @@ import { StyleSheet, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Liste from "./sayfalar/Liste";
-import GirisYap from "./sayfalar/GirisYap";
-import Details from "./sayfalar/Details";
+import List from "./pages/List";
+import DetailsScreen from "./pages/DetailsScreen";
+import Login from "./pages/Login";
 
 const Yigin = createNativeStackNavigator();
 
@@ -15,9 +15,9 @@ const App = ({navigation}) => {
       <Yigin.Navigator screenOptions={() => ({
         headerShown:false
       })}>
-        <Yigin.Screen name="Details" component={Details}/>
-        <Yigin.Screen name="Liste" component={Liste}/>
-        <Yigin.Screen name="GirisYap" component={GirisYap}/>
+        <Yigin.Screen name="List" component={List}/>
+        <Yigin.Screen name="DetailsScreen" component={DetailsScreen}/>
+        <Yigin.Screen name="Login" component={Login}/>
       </Yigin.Navigator>
     </NavigationContainer>
   );
