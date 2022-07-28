@@ -1,28 +1,32 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, TextInput, View, Image} from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { StyleSheet, Text, TextInput, View, Image } from 'react-native';
 import MyButton from '../components/MyButton';
+import { AuthContext } from '../Context';
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
+
+  const { signIn } = useContext(AuthContext)
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorText, setErrorText] = useState('');
-  const [products, setProduts] = useState([]);
 
   const loginHandler = async () => {
     const res = await fetch('https://dummyjson.com/auth/login', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         username: username,
         password: password,
       }),
     });
+
     const json = await res.json();
     if (json.message) {
       setErrorText('Incorrect username or password');
       console.log('Incorrect');
     } else {
-      navigation.navigate('List');
+      signIn();
       console.log('Correct');
     }
   };
@@ -41,40 +45,36 @@ const Login = ({navigation}) => {
         secureTextEntry
         onChangeText={value => setPassword(value)}></TextInput>
       <Text style={styles.errorInfo}>{errorText}</Text>
-      <View style={styles.button}>
+      <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+        <MyButton text={'Admin'} command={() => signIn()} />
         <MyButton text={'Login'} command={loginHandler} />
       </View>
     </View>
   );
 };
 
+
+
 const styles = StyleSheet.create({
   body: {
     width: '100%',
     height: '100%',
     backgroundColor: '#728180',
+    paddingTop: 40,
+    paddingHorizontal:20
   },
   input: {
     backgroundColor: '#ffffff',
     borderWidth: 1,
-    marginTop: 20,
-    marginLeft: 20,
-    marginRight: 20,
+    marginBottom: 20
   },
   title: {
-    marginTop: 20,
-    marginLeft: 18,
-    fontSize: 22,
+    marginBottom: 20,
+    fontSize: 30,
     color: '#fff',
   },
-  button: {
-    width: '95%',
-    alignItems: 'flex-end',
-    marginTop: 10,
-  },
   errorInfo: {
-    marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 20,
     textAlign: 'center',
     color: '#dd0000',
   },

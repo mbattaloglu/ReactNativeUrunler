@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, Image, TextInput } from "react-native";
+import { View, StyleSheet, Text, Image, TextInput, ScrollView } from "react-native";
 
 import MyButton from "../components/MyButton";
 
@@ -18,96 +18,108 @@ const DetailsEdit = ({ navigation, route }) => {
     const [description, setDescription] = useState('');
 
     return (
-        <View style={styles.container}>
+        <ScrollView>
+            <View style={styles.container}>
+                <Text style={styles.headerText}>Edit #{item.id}</Text>
+                <View style={styles.stick} />
 
-            {/* Header */}
-            <View style={styles.headerLine}>
-                <View style={{ alignItems: 'center' }}>
-                    <Image
-                        style={styles.logo}
-                        source={{ uri: item.thumbnail }}
+                {/* Other */}
+                <View style={styles.otherLine}>
+                    <Texts
+                        main={"Title"}
+                        text={item.title}
+                        command={value => setTitle(value)} />
+                    <Texts
+                        main={"Price"}
+                        text={item.price}
+                        addkeyboardType={'phone-pad'}
+                        command={value => setPrice(value)} />
+                    <Texts
+                        main={"Rating"}
+                        text={item.rating}
+                        addkeyboardType={'phone-pad'}
+                        command={value => setRating(value)} />
+                    <Texts
+                        main={"Brand"}
+                        text={item.brand}
+                        command={value => setBrand(value)} />
+                    <Texts
+                        main={"Category"}
+                        text={item.category}
+                        command={value => setCategory(value)} />
+                    <Texts
+                        main={"Stock"}
+                        text={item.stock}
+                        addkeyboardType={'phone-pad'}
+                        command={value => setStock(value)} />
+                    <Texts
+                        main={"Discount"}
+                        text={item.discountPercentage}
+                        addkeyboardType={'phone-pad'}
+                        command={value => setDiscountPercentage(value)} />
+                    <Texts
+                        main={"Logo"}
+                        text={item.thumbnail}
+                        command={value => setLogo(value)} />
+                    <Texts
+                        main={"Description"}
+                        text={item.description}
+                        maxHeight={100}
+                        addmultiline={true}
+                        command={value => setDescription(value)} />
+                </View>
+
+                {/* Buttons */}
+                <View style={styles.buttonsLine}>
+                    <MyButton text={"Cancel"}
+                        boxStyle={{ backgroundColor: '#8A817C', height: 50 }}
+                        textStyle={{ color: 'white' }}
+                        command={() => navigation.goBack()}
                     />
-                    <Text style={styles.rating}>{item.rating}</Text>
+                    <MyButton text={"Save"}
+                        boxStyle={{ backgroundColor: '#8A817C', height: 50 }}
+                        textStyle={{ color: 'white' }}
+                        command={() =>
 
-                </View>
-
-                <View style={styles.headerText}>
-                    <Text style={styles.title}>{item.title}</Text>
-                    <View style={styles.stick} />
-                    <View style={styles.priceLine}>
-                        <Text style={styles.price}>{item.price}$</Text>
-                        <Text style={styles.countPrice}>{parseInt(item.price * (100 - item.discountPercentage) / 100)}$</Text>
-                    </View>
-                </View>
-
-            </View>
-
-            {/* Other */}
-            <View style={styles.otherLine}>
-                <Texts
-                    main={"Brand"}
-                    text={item.brand}
-                    command={value => setBrand(value)} />
-                <Texts
-                    main={"Category"}
-                    text={item.category}
-                    command={value => setCategory(value)} />
-                <Texts
-                    main={"Stock"}
-                    text={item.stock}
-                    command={value => setStock(value)} />
-                <Texts
-                    main={"Discount Percentage"}
-                    text={item.discountPercentage}
-                    command={value => setDiscountPercentage(value)} />
-                <Texts
-                    main={"Description"}
-                    text={item.description}
-                    command={value => setDescription(value)} />
-            </View>
-
-            {/* Buttons */}
-            <View style={styles.buttonsLine}>
-                <MyButton text={"Cancel"}
-                    boxStyle={{ backgroundColor: 'darkgray', height: 50 }}
-                    textStyle={{ color: 'black' }}
-                />
-                <MyButton text={"Save"}
-                    boxStyle={{ backgroundColor: 'darkgray', height: 50 }}
-                    textStyle={{ color: 'black' }}
-                    command={() =>
-
-                        [fetch('https://dummyjson.com/products/1', {
-                            method: 'PUT', /* or PATCH */
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                brand: brand,
-                                category: category,
-                                stock: stock,
-                                discountPercentage: discountPercentage,
-                                description: description
+                            [fetch('https://dummyjson.com/products/' + item.id, {
+                                method: 'PUT', /* or PATCH */
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    title: title,
+                                    price: price,
+                                    rating: rating,
+                                    brand: brand,
+                                    category: category,
+                                    stock: stock,
+                                    discountPercentage: discountPercentage,
+                                    thumbnail: logo,
+                                    description: description
+                                })
                             })
-                        })
-                            .then(res => res.json())
-                            .then(console.log)
-                        
-                            ,navigation.goBack()]
-                    }
-                />
+                                .then(res => res.json())
+                                .then(console.log)
+
+                                , navigation.goBack()]
+                        }
+                    />
+                </View>
+
             </View>
 
-        </View>
-
+        </ScrollView>
     )
 }
 
-const Texts = ({ main, text, command }) => {
+const Texts = ({ main, text, command, maxHeight, addmultiline, addkeyboardType }) => {
 
     return (
-        <View style={{ flexDirection: 'row', marginBottom: 20, alignItems: 'center' }}>
-            <Text style={{ color: 'black', fontSize: 20, fontWeight: 'bold' }}>{main}: </Text>
+        <View style={{ flexDirection: 'row', marginBottom: 20, alignItems: 'center', justifyContent: 'space-between' }}>
+            <Text style={{ color: '#463F3A', fontSize: 20, fontWeight: '700' }}>{main} :</Text>
             <TextInput
-                style={{ color: 'black', flex: 1, fontSize: 20 }}
+                style={[styles.textinput, { height: maxHeight, maxWidth: 220 }]}
+                textAlignVertical='top'
+                multiline={addmultiline}
+                keyboardType={addkeyboardType}
                 onChangeText={command}
             >{text}</TextInput>
         </View>
@@ -119,59 +131,39 @@ const styles = StyleSheet.create({
         flex: 1,
         marginHorizontal: 25,
         marginVertical: 25,
-    },
-    logo: {
-        width: 110,
-        height: 110,
-        borderRadius: 5,
-        borderWidth: 2,
-        borderColor: 'black'
-    },
-    title: {
-        fontSize: 30,
-        color: 'black',
-        fontWeight: 'bold',
-        textAlign: 'center'
-    },
-    priceLine: {
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
-    price: {
-        fontSize: 17,
-        textDecorationLine: 'line-through',
-        marginRight: 5
-    },
-    countPrice: {
-        fontSize: 25,
-    },
-    rating: {
-        fontSize: 20,
-        color: 'black'
-    },
-    headerLine: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 25,
-    },
-    headerText: {
-        flex: 1,
-        alignItems: 'center',
-        marginBottom: 25
-    },
-    stick: {
-        backgroundColor: 'black',
-        height: 1,
-        width: 150
+        backgroundColor:'#F4F3EE'
     },
     otherLine: {
-        height: 300,
         marginBottom: 25,
     },
     buttonsLine: {
         flexDirection: 'row',
         justifyContent: 'space-between'
-    }
+    },
+    textinput: {
+        color: '#5C5C5C',
+        flex: 1,
+        fontSize: 20,
+        backgroundColor: '#e9edc9',
+        borderWidth: 1,
+        borderColor: '#a3b18a',
+        borderRadius:10,
+        paddingHorizontal:10
+    },
+    headerText: {
+        fontSize: 40,
+        alignSelf: 'center',
+        color: '#463F3A',
+        fontWeight: 'bold'
+    },
+    stick: {
+        backgroundColor: '#463F3A',
+        height: 2,
+        width: 150,
+        alignSelf: 'center',
+        marginBottom: 20,
+
+    },
 })
 
 export default DetailsEdit;

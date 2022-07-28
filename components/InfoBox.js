@@ -32,16 +32,16 @@ const InfoBox = ({ itemName, brand, stock, price, logo, command }) => {
 
 const styles = StyleSheet.create({
     square: {
-        width: 50,
-        height: 50,
-        borderRadius: 5
+        width: 80,
+        height: 80,
+        borderRadius: 5,
     },
     itemCard: {
         marginTop: 5,
         width: "95%",
         backgroundColor: "#ffffff",
         flexDirection: 'row',
-        borderWidth: 0.5,
+        borderWidth: 1,
         borderRadius: 5
     },
     textBox: {

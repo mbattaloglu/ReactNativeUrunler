@@ -15,12 +15,12 @@ const List = ({ navigation }) => {
 
     const [products, setProducts] = useState([]);
 
-    useEffect(() => {
+    /*useEffect(() => {
         const IsLoggined = false;
         if (!IsLoggined) {
             navigation.navigate("Login")
         }
-    }, []);
+    }, []);*/
     return (
         <FlatList
             data={products}
