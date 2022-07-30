@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, TextInput, View, Image} from 'react-native';
-import Buton from './Buton';
+import CustomButton from './CustomButton';
+import Header from './Header';
 
 const Login = ({navigation}) => {
   const [username, setUsername] = useState('');
@@ -20,29 +21,27 @@ const Login = ({navigation}) => {
     const json = await res.json();
     if (json.message) {
       setErrorText('Yanlış kullanıcı adı veya şifre');
-      console.log('Yanlış');
     } else {
-      navigation.navigate('Items');
-      console.log('Doğru');
+      navigation.navigate('ListItems');
     }
   };
   return (
     <View style={styles.body}>
-      <Text style={styles.title}>Giriş Yap</Text>
+      <Header title={"Giriş Yap"}/>
       <View>
         <TextInput
           style={styles.input}
-          placeholder=" Kullanıcı Adı"
+          placeholder="Kullanıcı Adı"
           onChangeText={value => setUsername(value)}></TextInput>
       </View>
       <TextInput
         style={styles.input}
-        placeholder=" Şifre"
+        placeholder="Şifre"
         secureTextEntry
         onChangeText={value => setPassword(value)}></TextInput>
       <Text style={styles.errorInfo}>{errorText}</Text>
       <View style={styles.button}>
-        <Buton metin={'Giriş Yap'} komut={loginHandler} />
+        <CustomButton title={'Giriş Yap'} onClickHandler={loginHandler} />
       </View>
     </View>
   );
@@ -60,6 +59,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 20,
     marginRight: 20,
+    paddingLeft : 10
   },
   title: {
     marginTop: 20,

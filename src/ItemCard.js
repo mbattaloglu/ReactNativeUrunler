@@ -15,8 +15,8 @@ const ItemCard = ({itemName, brand, stock, price, logo}) => {
             <Text>{brand}</Text>
           </View>
           <View style={styles.infoBox}>
-            <Text>Stock:{stock}</Text>
-            <Text>${price}</Text>
+            <Text style={{textAlign:'right'}}>Stock:{stock}</Text>
+            <Text style={{textAlign:'right'}}>${price}</Text>
           </View>
         </View>
     );
@@ -25,16 +25,16 @@ const ItemCard = ({itemName, brand, stock, price, logo}) => {
 
 const styles = StyleSheet.create({
     square : {
-      width : 50,
-      height : 50,
+      width : 48,
+      height : 48,
       borderRadius : 5
     },
     itemCard : {
       marginTop : 5,
-      width : "95%",
+      width : "100%",
       backgroundColor : "#ffffff",
       flexDirection : 'row',
-      borderWidth : 0.5,
+      borderWidth : 1,
     },
     textBox : {
       marginLeft : 5,
