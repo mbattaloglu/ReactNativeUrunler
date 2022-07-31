@@ -5,22 +5,13 @@ import Items from './Items';
 import Header from './Header';
 import CustomButton from './CustomButton';
 
-const ListItems = ({navigation}) => {
-  const SORT_STATE = {
-    DEFAULT: 0,
-    SORT_NAME_ASC: 1,
-    SORT_NAME_DESC: 2,
-    SORT_BRAND_ASC: 3,
-    SORT_BRAND_DESC: 4,
-    SORT_PRICE_ASC: 5,
-    SORT_PRICE_DESC: 6,
-  };
+const { STATE } = require( "./State");
 
-  let ACTUAL_STATE = SORT_STATE.DEFAULT;
+const ListItems = ({navigation}) => {
+
+  let ACTUAL_STATE = STATE.DEFAULT;
 
   const [searchPhrase, setSearchPhrase] = useState('');
-  const [, updateState] = React.useState();
-  const forceUpdate = React.useCallback(() => updateState({}), []);
   const [nameSortingState, setNameSortingState] = useState(0);
   const [brandSortingState, setBrandSortingState] = useState(0);
   const [priceSortingState, setPriceSortingState] = useState(0);
@@ -29,20 +20,23 @@ const ListItems = ({navigation}) => {
     fetch('https://dummyjson.com/products')
       .then(res => res.json())
       .then(res => setProducts(res.products));
+      fetch('https://dummyjson.com/products')
+      .then(res => res.json())
+      .then(res => setDefaultProducts(res.products));
   }, [products]);
 
   const [products, setProducts] = useState([]);
-  const [defaultProducts, setDefaultProducts] = useState(JSON.parse(JSON.stringify(products)));
+  const [defaultProducts, setDefaultProducts] = useState([]);
 
   const sortByName = () => {
     if (nameSortingState === 0) {
-      ACTUAL_STATE = SORT_STATE.SORT_NAME_ASC;
+      ACTUAL_STATE = STATE.SORT_NAME_ASC;
       setNameSortingState(1);
     } else if (nameSortingState === 1) {
-      ACTUAL_STATE = SORT_STATE.SORT_NAME_DESC;
+      ACTUAL_STATE = STATE.SORT_NAME_DESC;
       setNameSortingState(2);
     } else if (nameSortingState === 2) {
-      ACTUAL_STATE = SORT_STATE.DEFAULT;
+      ACTUAL_STATE = STATE.DEFAULT;
       setNameSortingState(0);
     }
     setBrandSortingState(0);
@@ -52,13 +46,13 @@ const ListItems = ({navigation}) => {
 
   const sortByBrand = () => {
     if (brandSortingState === 0) {
-      ACTUAL_STATE = SORT_STATE.SORT_BRAND_ASC;
+      ACTUAL_STATE = STATE.SORT_BRAND_ASC;
       setBrandSortingState(1);
     } else if (brandSortingState === 1) {
-      ACTUAL_STATE = SORT_STATE.SORT_BRAND_DESC;
+      ACTUAL_STATE = STATE.SORT_BRAND_DESC;
       setBrandSortingState(2);
     } else if (brandSortingState === 2) {
-      ACTUAL_STATE = SORT_STATE.DEFAULT;
+      ACTUAL_STATE = STATE.DEFAULT;
       setBrandSortingState(0);
     }
     setNameSortingState(0);
@@ -68,13 +62,13 @@ const ListItems = ({navigation}) => {
 
   const sortByPrice = () => {
     if (priceSortingState === 0) {
-      ACTUAL_STATE = SORT_STATE.SORT_PRICE_ASC;
+      ACTUAL_STATE = STATE.SORT_PRICE_ASC;
       setPriceSortingState(1);
     } else if (priceSortingState === 1) {
-      ACTUAL_STATE = SORT_STATE.SORT_PRICE_DESC;
+      ACTUAL_STATE = STATE.SORT_PRICE_DESC;
       setPriceSortingState(2);
     } else if (priceSortingState === 2) {
-      ACTUAL_STATE = SORT_STATE.DEFAULT;
+      ACTUAL_STATE = STATE.DEFAULT;
       setPriceSortingState(0);
     }
     setNameSortingState(0);
@@ -84,29 +78,28 @@ const ListItems = ({navigation}) => {
 
   const sort = () => {
     switch (ACTUAL_STATE) {
-      case SORT_STATE.DEFAULT:
+      case STATE.DEFAULT:
         setProducts(JSON.parse(JSON.stringify(defaultProducts)));
         break;
-      case SORT_STATE.SORT_NAME_ASC:
+      case STATE.SORT_NAME_ASC:
         products.sort((a, b) => a.title < b.title);
         break;
-      case SORT_STATE.SORT_NAME_DESC:
+      case STATE.SORT_NAME_DESC:
         products.sort((a, b) => b.title < a.title);
         break;
-      case SORT_STATE.SORT_BRAND_ASC:
+      case STATE.SORT_BRAND_ASC:
         products.sort((a, b) => a.brand < b.brand);
         break;
-      case SORT_STATE.SORT_BRAND_DESC:
+      case STATE.SORT_BRAND_DESC:
         products.sort((a, b) => b.brand < a.brand);
         break;
-      case SORT_STATE.SORT_PRICE_ASC:
+      case STATE.SORT_PRICE_ASC:
         products.sort((a, b) => a.price < b.price);
         break;
-      case SORT_STATE.SORT_PRICE_DESC:
+      case STATE.SORT_PRICE_DESC:
         products.sort((a, b) => b.price < a.price);
         break;
     }
-    forceUpdate();
   };
 
   
