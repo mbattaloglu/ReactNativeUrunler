@@ -16,7 +16,7 @@ const App = ({navigation}) => {
           headerShown: false,
         }}>
         <Stack.Screen name="ListItems" component={ListItems} />
-        {/*<Stack.Screen name="Login" component={Login} />*/}
+        <Stack.Screen name="Login" component={Login} />
       </Stack.Navigator>
     </NavigationContainer>
   );

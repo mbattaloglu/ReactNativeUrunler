@@ -29,13 +29,10 @@ const ListItems = ({navigation}) => {
     fetch('https://dummyjson.com/products')
       .then(res => res.json())
       .then(res => setProducts(res.products));
-    fetch('https://dummyjson.com/products')
-      .then(res => res.json())
-      .then(res => setDefaultProduct(res.products));
   }, [products]);
 
   const [products, setProducts] = useState([]);
-  const [defaultProduct, setDefaultProduct] = useState([]);
+  const [defaultProducts, setDefaultProducts] = useState(JSON.parse(JSON.stringify(products)));
 
   const sortByName = () => {
     if (nameSortingState === 0) {
@@ -48,11 +45,6 @@ const ListItems = ({navigation}) => {
       ACTUAL_STATE = SORT_STATE.DEFAULT;
       setNameSortingState(0);
     }
-    console.log("Name state:" + nameSortingState);
-    console.log("Brand state:" + brandSortingState);
-    console.log("Price state:" + priceSortingState);
-    console.log("ACTUAL_STATE:" + ACTUAL_STATE);
-
     setBrandSortingState(0);
     setPriceSortingState(0);
     sort();
@@ -69,10 +61,6 @@ const ListItems = ({navigation}) => {
       ACTUAL_STATE = SORT_STATE.DEFAULT;
       setBrandSortingState(0);
     }
-    console.log("Name state:" + nameSortingState);
-    console.log("Brand state:" + brandSortingState);
-    console.log("Price state:" + priceSortingState);
-    console.log("ACTUAL_STATE:" + ACTUAL_STATE);
     setNameSortingState(0);
     setPriceSortingState(0);
     sort();
@@ -89,10 +77,6 @@ const ListItems = ({navigation}) => {
       ACTUAL_STATE = SORT_STATE.DEFAULT;
       setPriceSortingState(0);
     }
-    console.log("Name state:" + nameSortingState);
-    console.log("Brand state:" + brandSortingState);
-    console.log("Price state:" + priceSortingState);
-    console.log("ACTUAL_STATE:" + ACTUAL_STATE);
     setNameSortingState(0);
     setBrandSortingState(0);
     sort();
@@ -101,43 +85,38 @@ const ListItems = ({navigation}) => {
   const sort = () => {
     switch (ACTUAL_STATE) {
       case SORT_STATE.DEFAULT:
-        setProducts(JSON.parse(JSON.stringify(defaultProduct)));
+        setProducts(JSON.parse(JSON.stringify(defaultProducts)));
         break;
       case SORT_STATE.SORT_NAME_ASC:
         products.sort((a, b) => a.title < b.title);
-        forceUpdate();
         break;
       case SORT_STATE.SORT_NAME_DESC:
         products.sort((a, b) => b.title < a.title);
-        forceUpdate();
         break;
       case SORT_STATE.SORT_BRAND_ASC:
         products.sort((a, b) => a.brand < b.brand);
-        forceUpdate();
         break;
       case SORT_STATE.SORT_BRAND_DESC:
         products.sort((a, b) => b.brand < a.brand);
-        forceUpdate();
         break;
       case SORT_STATE.SORT_PRICE_ASC:
         products.sort((a, b) => a.price < b.price);
-        forceUpdate();
         break;
       case SORT_STATE.SORT_PRICE_DESC:
         products.sort((a, b) => b.price < a.price);
-        forceUpdate();
         break;
     }
+    forceUpdate();
   };
 
-  /*
+  
   useEffect(() => {
     const loggedIn = false;
     if (!loggedIn) {
       navigation.navigate('Login');
     }
   }, []);
-*/
+
   return (
     <View style={styles.body}>
       <Header title={'Items'} />
