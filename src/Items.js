@@ -2,13 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {FlatList} from 'react-native';
 import ItemCard from './ItemCard';
 
-const Items = ({searchPhrase}) => {
-  useEffect(() => {
-    fetch('https://dummyjson.com/products')
-      .then(res => res.json())
-      .then(res => setProducts(res.products));
-  }, [products]);
-  const [products, setProducts] = useState([]);
+const Items = ({searchPhrase, data}) => {
 
   const renderItem = ({item}) => {
     if (searchPhrase === '') {
@@ -22,11 +16,7 @@ const Items = ({searchPhrase}) => {
         />
       );
     }
-    if (
-      item.title
-        .toUpperCase()
-        .includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ''))
-    ) {
+    if (item.title.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ''))) {
       return (
         <ItemCard
           itemName={item.title}
@@ -37,11 +27,18 @@ const Items = ({searchPhrase}) => {
         />
       );
     }
-    if (
-      item.brand
-        .toUpperCase()
-        .includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ''))
-    ) {
+    if (item.brand.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ''))) {
+      return (
+        <ItemCard
+          itemName={item.title}
+          brand={item.brand}
+          stock={item.stock}
+          price={item.price}
+          logo={item.thumbnail}
+        />
+      );
+    }
+    if (item.category.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ''))) {
       return (
         <ItemCard
           itemName={item.title}
@@ -56,7 +53,7 @@ const Items = ({searchPhrase}) => {
 
   return (
     <FlatList
-      data={products}
+      data={data}
       keyExtractor={item => item.id}
       renderItem={renderItem}
     />
