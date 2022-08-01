@@ -3,12 +3,16 @@ import {
     StyleSheet,
     Text,
     View,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native';
 
-const ItemCard = ({itemName, brand, stock, price, logo}) => {
+const ItemCard = ({itemName, brand, stock, price, logo, onClickHandler}) => {
     return (
-        <View style={styles.itemCard}>
+      <TouchableOpacity
+       onPress={onClickHandler}
+      >
+        <View style={styles.itemCard} onPress={onClickHandler}>
           <Image style={styles.square} source={{ uri: logo }} />
           <View style={styles.textBox}>
             <Text>{itemName}</Text>
@@ -19,6 +23,7 @@ const ItemCard = ({itemName, brand, stock, price, logo}) => {
             <Text style={{textAlign:'right'}}>${price}</Text>
           </View>
         </View>
+      </TouchableOpacity>
     );
 }
 

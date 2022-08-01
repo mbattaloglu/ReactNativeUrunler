@@ -1,10 +1,11 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import ListItems from './ListItems';
 import Login from './Login';
+import ItemDetails from './ItemDetails';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,7 @@ const App = ({navigation}) => {
         }}>
         <Stack.Screen name="ListItems" component={ListItems} />
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="ItemDetails" component={ItemDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );
