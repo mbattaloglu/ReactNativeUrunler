@@ -36,8 +36,7 @@ const ItemDetails = ({navigation, route}) => {
         <Text style={styles.descriptionText}>İndirim Oranı:%{parseInt(item.discountPercentage)}</Text>
         <Text style={styles.descriptionText}>Açıklama:{item.description}</Text>
         <View style={styles.buttons}>
-          <CustomButton boxStyle={styles.button} title={'Düzenle'} />
-          <CustomButton bosStyle={styles.button} title={'Sil'} />
+          <CustomButton boxStyle={styles.button} title={'Düzenle'} onClickHandler={ () => {navigation.navigate("EditItem", { itemId : item.id})}} />
         </View>
       </View>
     </View>
