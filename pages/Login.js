@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Login = ({ navigation }) => {
 
 
-  const Load = async() =>  {
+  const Load = async () => {
     try {
       const v_username = await AsyncStorage.getItem('username');
       if (v_username !== null)
@@ -81,26 +81,29 @@ const Login = ({ navigation }) => {
         secureTextEntry
         onChangeText={value => setPassword(value)}>{password}</TextInput>
 
-      <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5, marginTop:10 }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5, marginTop: 10 }}>
 
         <TouchableOpacity
-          style={styles.checkBox}
+        style={{flexDirection:'row'}}
           onPress={() => setIsRemembered(!isRemembered)}
         >
-          {
-            isRemembered ? (
-              <Image source={Icons.tick} style={{ width: 20, height: 20 }} />
-            ) : (
-              <></>
-            )
-          }
+          <View style={styles.checkBox}>
+            {
+              isRemembered ? (
+                <Image source={Icons.tick} style={{ width: 20, height: 20 }} />
+              ) : (
+                <></>
+              )
+            }
+
+          </View>
+          <Text style={{ marginLeft: 5, fontSize: 15 }}>Remember me</Text>
         </TouchableOpacity>
 
 
-        <Text style={{ marginLeft: 5, fontSize: 15 }}>Remember me</Text>
       </View>
 
-      <View style={{marginTop: 10, alignItems:'flex-end' }}>
+      <View style={{ marginTop: 10, alignItems: 'flex-end' }}>
         <MyButton text={'Login'} command={loginHandler} />
       </View>
     </View>

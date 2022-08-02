@@ -132,7 +132,6 @@ const App = ({ navigation }) => {
   }, [])
 
   useEffect(() => {
-    //Load();
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);

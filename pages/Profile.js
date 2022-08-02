@@ -40,7 +40,7 @@ const Profile = ({ navigation }) => {
 
 
             <LineBox
-                baslik="Çıkış Yap"
+                baslik="Logout"
                 icon={Icons.exit}
                 iconArkaRenk="#EB1D36"
                 komut={() => {
