@@ -1,24 +1,31 @@
 import React from "react"
-import { StyleSheet, TouchableOpacity, View,Text } from "react-native";
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import { StyleSheet, TouchableOpacity, View, Text, Image } from "react-native";
 
-export const LineBox = ({ baslik, iconIsmi, iconArkaRenk, komut, stil }) => {
+import { Icons } from "./Constants";
+
+export const LineBox = ({ baslik, icon, iconArkaRenk, komut, stil }) => {
     return (
         <TouchableOpacity
             style={[stiller1.cikis, stil]}
             onPress={komut}>
             <View style={[stiller1.cikisIcon, { backgroundColor: iconArkaRenk }]}>
-                <Ionicons
-                    name={iconIsmi}
-                    size={25}
-                    color={'white'}
+                <Image
+                    source={icon}
+                    style={{
+                        height: 20,
+                        width: 20,
+                        tintColor: 'white',
+                    }}
                 />
             </View>
             <Text style={stiller1.cikisMetin}>{baslik}</Text>
-            <Ionicons
-                name="chevron-forward-outline"
-                size={20}
-                color={"gray"}
+            <Image
+                source={Icons.right}
+                style={{
+                    height: 15,
+                    width: 15,
+                    tintColor: 'gray',
+                }}
             />
         </TouchableOpacity>
     )

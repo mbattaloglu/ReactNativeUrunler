@@ -5,9 +5,7 @@ import MyButton from "../components/MyButton";
 
 import { ThemeColors } from "../components/Constants";
 
-const DetailsEdit = ({ navigation, route }) => {
-
-    const { item } = route.params;
+const NewProduct = ({ navigation }) => {
 
     const [logo, setLogo] = useState('');
     const [title, setTitle] = useState('');
@@ -22,50 +20,39 @@ const DetailsEdit = ({ navigation, route }) => {
     return (
         <ScrollView>
             <View style={styles.container}>
-                <Text style={styles.headerText}>Edit #{item.id}</Text>
-                <View style={styles.stick} />
 
                 {/* Other */}
                 <View style={styles.otherLine}>
                     <Texts
                         main={"Title"}
-                        text={item.title}
                         command={value => setTitle(value)} />
                     <Texts
                         main={"Price"}
-                        text={item.price}
                         addkeyboardType={'phone-pad'}
                         command={value => setPrice(value)} />
                     <Texts
                         main={"Rating"}
-                        text={item.rating}
                         addkeyboardType={'phone-pad'}
                         command={value => setRating(value)} />
                     <Texts
                         main={"Brand"}
-                        text={item.brand}
                         command={value => setBrand(value)} />
                     <Texts
                         main={"Category"}
-                        text={item.category}
                         command={value => setCategory(value)} />
                     <Texts
                         main={"Stock"}
-                        text={item.stock}
                         addkeyboardType={'phone-pad'}
                         command={value => setStock(value)} />
                     <Texts
                         main={"Discount"}
-                        text={item.discountPercentage}
                         addkeyboardType={'phone-pad'}
                         command={value => setDiscountPercentage(value)} />
                     <Texts
                         main={"Logo"}
-                        text={item.thumbnail}
                         command={value => setLogo(value)} />
                     <Texts
                         main={"Description"}
-                        text={item.description}
                         maxHeight={100}
                         addmultiline={true}
                         command={value => setDescription(value)} />
@@ -77,11 +64,11 @@ const DetailsEdit = ({ navigation, route }) => {
                         boxStyle={{ height: 50 }}
                         command={() => navigation.goBack()}
                     />
-                    <MyButton text={"Save"}
+                    <MyButton text={"Add"}
                         boxStyle={{ height: 50 }}
                         command={() =>
-                            [fetch('https://dummyjson.com/products/' + item.id, {
-                                method: 'PUT', /* or PATCH */
+                            [fetch('https://dummyjson.com/products/add', {
+                                method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({
                                     title: title,
@@ -95,11 +82,8 @@ const DetailsEdit = ({ navigation, route }) => {
                                     description: description
                                 })
                             })
-                                .then(res => res.json())
-                                .then(console.log)
-
-                                , navigation.goBack()]
-                        }
+                                .then(res => res.json()),
+                            navigation.goBack()]}
                     />
                 </View>
 
@@ -130,6 +114,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginHorizontal: 25,
         marginVertical: 25,
+        backgroundColor: '#F4F3EE'
     },
     otherLine: {
         marginBottom: 25,
@@ -150,17 +135,17 @@ const styles = StyleSheet.create({
     headerText: {
         fontSize: 40,
         alignSelf: 'center',
-        color: 'black',
-        fontWeight: 'bold',
+        color: '#463F3A',
+        fontWeight: 'bold'
     },
     stick: {
         backgroundColor: '#463F3A',
         height: 2,
         width: 150,
         alignSelf: 'center',
-        marginBottom: 40,
+        marginBottom: 20,
 
     },
 })
 
-export default DetailsEdit;
+export default NewProduct;

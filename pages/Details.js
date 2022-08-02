@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text, Image, ScrollView } from "react-native";
+import { View, StyleSheet, Text, Image, ScrollView, Alert } from "react-native";
 
 import MyButton from "../components/MyButton";
 
@@ -44,19 +44,21 @@ const Details = ({ navigation, route }) => {
             {/* Buttons */}
             <View style={styles.buttonsLine}>
                 <MyButton text={"Delete"}
-                    boxStyle={{ backgroundColor: '#8A817C', height: 50 }}
-                    textStyle={{ color: 'white' }}
-                    command={() => [
-                        fetch('https://dummyjson.com/products/1', {
-                            method: 'DELETE',
-                        })
-                            .then(res => res.json()),
-                        navigation.goBack()
-                    ]}
+                    boxStyle={{ height: 50 }}
+                    command={() => Alert.alert(
+                        'Warning',
+                        'You are about to delete this product. Are you sure?', [{
+                            text: 'Yes', onPress: () =>
+                                [fetch('https://dummyjson.com/products/' + item.id, {
+                                    method: 'DELETE',
+                                })
+                                    .then(res => res.json()).then(console.log),
+                                navigation.goBack()]
+                        }, { text: 'No' }]
+                    )}
                 />
                 <MyButton text={"Edit"}
-                    boxStyle={{ backgroundColor: '#8A817C', height: 50 }}
-                    textStyle={{ color: 'white' }}
+                    boxStyle={{ height: 50 }}
                     command={() => navigation.navigate('DetailsEdit', { item })}
                 />
 
@@ -83,7 +85,6 @@ const styles = StyleSheet.create({
         flex: 1,
         marginHorizontal: 25,
         marginVertical: 25,
-        backgroundColor: '#F4F3EE'
     },
     logo: {
         width: 110,
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 30,
-        color: '#463F3A',
+        color: 'black',
         fontWeight: 'bold',
         textAlign: 'center',
         width: 200,
@@ -144,7 +145,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     textsMain: {
-        color: '#463F3A',
+        color: 'black',
         fontSize: 20,
         fontWeight: 'bold',
     },

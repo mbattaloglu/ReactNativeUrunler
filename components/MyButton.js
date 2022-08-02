@@ -13,16 +13,17 @@ const MyButton = ({boxStyle, textStyle, text, command}) => {
 
 const stiller = StyleSheet.create({
     shape: {
-        width: 130,
-        height: 70,
+        width: 114,
+        height: 56,
         backgroundColor: 'black',
         justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
+        borderRadius: 10
     },
     text: {
         color: 'white',
-        fontSize: 25,
-        //fontWeight:'bold'
+        fontSize: 20,
+        fontWeight:'bold'
     }
 })
 
