@@ -103,11 +103,7 @@ const ListItems = ({navigation}) => {
 
   return (
     <View style={styles.body}>
-      <Header title={'Items'} />
-      <CustomButton
-        title={'Profil'}
-        onClickHandler={() => navigation.navigate('Profile')}
-      />
+      <Header title={'Ürünler'} />
       <View style={styles.buttonBox}>
         <CustomButton
           boxStyle={styles.button}

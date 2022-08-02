@@ -1,6 +1,7 @@
 import {Text, StyleSheet, View, Image} from 'react-native';
 import React, {useState, useEffect, useContext} from 'react';
 import CustomButton from './CustomButton';
+import Header from './Header';
 import {AuthContext} from './Context';
 
 const Profile = ({navigation}) => {
@@ -14,6 +15,7 @@ const Profile = ({navigation}) => {
 
   return (
     <View>
+      <Header title={'Profil'} />
       <View style={styles.header}>
         <Image style={styles.image} source={{uri: user.image}}></Image>
         <View style={styles.name}>

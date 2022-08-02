@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import {StyleSheet, Text, TextInput, View, Image} from 'react-native';
 import CustomButton from './CustomButton';
 import Header from './Header';
