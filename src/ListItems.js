@@ -1,11 +1,10 @@
 import {View, StyleSheet} from 'react-native';
 import React, {useState, useEffect} from 'react';
-import CustomSearchBar from './CustomSearchBar';
+import CustomSearchBar from './components/CustomSearchBar';
 import Items from './Items';
-import Header from './Header';
-import CustomButton from './CustomButton';
+import CustomButton from './components/CustomButton';
 
-const {STATE} = require('./State');
+const {STATE} = require('./config/State');
 
 const ListItems = ({navigation}) => {
   let ACTUAL_STATE = STATE.DEFAULT;
@@ -103,7 +102,6 @@ const ListItems = ({navigation}) => {
 
   return (
     <View style={styles.body}>
-      <Header title={'Ürünler'} />
       <View style={styles.buttonBox}>
         <CustomButton
           boxStyle={styles.button}
@@ -142,6 +140,7 @@ const styles = StyleSheet.create({
     height: 30,
     marginLeft: 1,
     marginRight: 1,
+    borderRadius: 5,
   },
   buttonTitle: {
     fontSize: 11,

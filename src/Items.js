@@ -1,13 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {FlatList} from 'react-native';
-import ItemCard from './ItemCard';
+import ItemCard from './components/ItemCard';
 
 const Items = ({searchPhrase, data}) => {
   const navigation = useNavigation();
   const renderItem = ({item}) => {
 
-    if (searchPhrase === '') {
+    if (searchPhrase === '' || searchPhrase.length <= 2) {
       return (
         <ItemCard
           itemName={item.title}
@@ -19,8 +19,7 @@ const Items = ({searchPhrase, data}) => {
         />
       );
     }
-    if (item.title.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ''))) {
-      
+    if (searchPhrase.length >=3 && item.title.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ''))) {
       return (
         <ItemCard
           itemName={item.title}
@@ -32,7 +31,7 @@ const Items = ({searchPhrase, data}) => {
         />
       );
     }
-    if (item.brand.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ''))) {
+    if (searchPhrase.length >=3 && item.brand.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ''))) {
       return (
         <ItemCard
           itemName={item.title}
@@ -44,7 +43,7 @@ const Items = ({searchPhrase, data}) => {
         />
       );
     }
-    if (item.category.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ''))) {
+    if (searchPhrase.length >=3 && item.category.toUpperCase().includes(searchPhrase.toUpperCase().trim().replace(/\s/g, ''))) {
       return (
         <ItemCard
           itemName={item.title}

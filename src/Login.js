@@ -1,9 +1,9 @@
 import React, {useState, useContext} from 'react';
 import {StyleSheet, Text, TextInput, View, Image} from 'react-native';
-import CustomButton from './CustomButton';
-import Header from './Header';
+import CustomButton from './components/CustomButton';
+import Header from './components/Header';
 
-import {AuthContext} from './Context';
+import {AuthContext} from './config/Context';
 
 const Login = ({navigation}) => {
   const {signIn} = useContext(AuthContext);
@@ -33,7 +33,7 @@ const Login = ({navigation}) => {
   return (
     <View style={styles.body}>
       <Header title={'Giriş Yap'} />
-      <View>
+      <View style={{marginTop: 40}}>
         <TextInput
           style={styles.input}
           placeholder="Kullanıcı Adı"
@@ -45,8 +45,13 @@ const Login = ({navigation}) => {
         secureTextEntry
         onChangeText={value => setPassword(value)}></TextInput>
       <Text style={styles.errorInfo}>{errorText}</Text>
-      <View style={styles.button}>
-        <CustomButton title={'Giriş Yap'} onClickHandler={loginHandler} />
+      <View style={styles.buttonArea}>
+        <CustomButton
+          boxStyle={styles.buttonBox}
+          titleStyle={styles.buttonTitle}
+          title={'Giriş Yap'}
+          onClickHandler={loginHandler}
+        />
       </View>
     </View>
   );
@@ -56,11 +61,11 @@ const styles = StyleSheet.create({
   body: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#728180',
+    backgroundColor: '#ffffff',
   },
   input: {
     backgroundColor: '#ffffff',
-    borderWidth: 1,
+    borderBottomWidth: 1,
     marginTop: 20,
     marginLeft: 20,
     marginRight: 20,
@@ -72,10 +77,18 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: '#fff',
   },
-  button: {
+  buttonArea: {
     width: '95%',
     alignItems: 'flex-end',
     marginTop: 10,
+  },
+  buttonBox: {
+    borderRadius: 10,
+    height: 40,
+    width: 105,
+  },
+  buttonTitle: {
+    fontSize: 20,
   },
   errorInfo: {
     marginTop: 10,

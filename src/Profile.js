@@ -1,8 +1,10 @@
 import {Text, StyleSheet, View, Image} from 'react-native';
 import React, {useState, useEffect, useContext} from 'react';
-import CustomButton from './CustomButton';
-import Header from './Header';
-import {AuthContext} from './Context';
+import CustomButton from './components/CustomButton';
+import Header from './components/Header';
+import {AuthContext} from './config/Context';
+import AntDesignIcon from 'react-native-vector-icons/AntDesign';
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Profile = ({navigation}) => {
   const {signOut} = useContext(AuthContext);
@@ -15,7 +17,6 @@ const Profile = ({navigation}) => {
 
   return (
     <View>
-      <Header title={'Profil'} />
       <View style={styles.header}>
         <Image style={styles.image} source={{uri: user.image}}></Image>
         <View style={styles.name}>
@@ -25,15 +26,24 @@ const Profile = ({navigation}) => {
         </View>
       </View>
       <View style={styles.description}>
-        <Text style={styles.descriptionText}>Yaş:{user.age}</Text>
-        <Text style={styles.descriptionText}>
-          Telefon Numarası:{user.phone}
-        </Text>
-        <Text style={styles.descriptionText}>Eposta:{user.email}</Text>
-        <Text style={styles.descriptionText}>Şirket:{user.name}</Text>
+        <View style={styles.descriptionBox}>
+          <AntDesignIcon
+            name="mail"
+            size={32}
+            style={{marginRight: 20, color: '#000000'}}></AntDesignIcon>
+          <Text style={{fontSize: 22, color: '#000000'}}>{user.email}</Text>
+        </View>
+        <View style={styles.descriptionBox}>
+          <AntDesignIcon
+            name="phone"
+            size={32}
+            style={{marginRight: 20, color: '#000000'}}></AntDesignIcon>
+          <Text style={{fontSize: 22, color: '#000000'}}>{user.phone}</Text>
+        </View>
         <View style={styles.buttons}>
           <CustomButton
             boxStyle={styles.button}
+            titleStyle={styles.buttonTitle}
             title={'Çıkış Yap'}
             onClickHandler={signOut}
           />
@@ -46,10 +56,14 @@ const Profile = ({navigation}) => {
 const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
+    marginTop: 10,
   },
   image: {
     width: 100,
     height: 100,
+    borderRadius: 50,
+    borderWidth: 3,
+    borderColor: '#000000',
     backgroundColor: 'red',
   },
   name: {
@@ -74,12 +88,21 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   buttons: {
-    flexDirection: 'row',
+    width : "100%",
     justifyContent: 'center',
-    alignItems: 'center',
   },
   button: {
-    margin: 15,
+    marginTop : 10,
+    borderRadius: 5,
+    height: 40,
+    width: "100%",
+  },
+  descriptionBox: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  buttonTitle: {
+    fontSize: 18,
   },
 });
 

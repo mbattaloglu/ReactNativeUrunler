@@ -1,24 +1,25 @@
 import {Text, StyleSheet, View, Image} from 'react-native';
-import React, { useState, useEffect } from 'react';
-import CustomButton from './CustomButton';
-import { useNavigation } from '@react-navigation/native';
+import React, {useState, useEffect} from 'react';
+import CustomButton from './components/CustomButton';
 
 const ItemDetails = ({navigation, route}) => {
   const {itemId} = route.params;
-    useEffect(() => {
-        fetch(`https://dummyjson.com/products/${itemId}`)	
-        .then(res => res.json())
-        .then(res => setItem(res));
-    }, [item]);
-    const [item, setItem] = useState({});
+  useEffect(() => {
+    fetch(`https://dummyjson.com/products/${itemId}`)
+      .then(res => res.json())
+      .then(res => setItem(res));
+  }, [item]);
+  const [item, setItem] = useState({});
 
-    const discountedPrice = parseInt(item.price - (item.price * item.discountPercentage / 100));
-    
+  const discountedPrice = parseInt(
+    item.price - (item.price * item.discountPercentage) / 100,
+  );
+
   return (
-    <View>
+    <View style={{flex: 1}}>
       <View style={styles.header}>
         <View style={styles.imageBox}>
-          <Image style={styles.image} source={{uri:item.thumbnail}}></Image>
+          <Image style={styles.image} source={{uri: item.thumbnail}}></Image>
           <Text style={styles.imageText}>{item.rating}</Text>
         </View>
         <View style={styles.name}>
@@ -33,10 +34,19 @@ const ItemDetails = ({navigation, route}) => {
         <Text style={styles.descriptionText}>Marka:{item.title}</Text>
         <Text style={styles.descriptionText}>Kategori:{item.category}</Text>
         <Text style={styles.descriptionText}>Stok:{item.stock}</Text>
-        <Text style={styles.descriptionText}>İndirim Oranı:%{parseInt(item.discountPercentage)}</Text>
+        <Text style={styles.descriptionText}>
+          İndirim Oranı:%{parseInt(item.discountPercentage)}
+        </Text>
         <Text style={styles.descriptionText}>Açıklama:{item.description}</Text>
         <View style={styles.buttons}>
-          <CustomButton boxStyle={styles.button} title={'Düzenle'} onClickHandler={ () => {navigation.navigate("EditItem", { itemId : item.id})}} />
+          <CustomButton
+            boxStyle={styles.button}
+            titleStyle={styles.buttonTitle}
+            title={'Düzenle'}
+            onClickHandler={() => {
+              navigation.navigate('EditItem', {itemId: item.id});
+            }}
+          />
         </View>
       </View>
     </View>
@@ -100,7 +110,13 @@ const styles = StyleSheet.create({
   },
   button: {
     margin: 15,
+    borderRadius : 5,
+    height : 25,
+    width : 100,
   },
+  buttonTitle : {
+    fontSize : 15,
+  }
 });
 
 export default ItemDetails;
