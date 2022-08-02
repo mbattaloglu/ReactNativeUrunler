@@ -1,5 +1,5 @@
-import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import React, {useState, useMemo} from 'react';
+import {StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
@@ -7,22 +7,58 @@ import ListItems from './ListItems';
 import Login from './Login';
 import ItemDetails from './ItemDetails';
 import EditItem from './EditItem';
+import Profile from './Profile';
+import SplashScreen from './SplashScreen';
 
-const Stack = createNativeStackNavigator();
+import {AuthContext} from './Context';
+
+const ListStack = createNativeStackNavigator();
+const AuthStack = createNativeStackNavigator();
 
 const App = ({navigation}) => {
+  const [isLoading, setLoading] = useState(false);
+  const [userToken, setUserToken] = useState("");
+
+  if (isLoading) {
+    return <SplashScreen />;
+  }
+
+  const authContext = useMemo(() => {
+    return {
+      signIn: ({token}) => {
+        setLoading(false);
+        setUserToken(token);
+      },
+      signOut: () => {
+        setLoading(false);
+        setUserToken("");
+      },
+    };
+  }, []);
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}>
-        <Stack.Screen name="ListItems" component={ListItems} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="ItemDetails" component={ItemDetails} />
-        <Stack.Screen name="EditItem" component={EditItem} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <AuthContext.Provider value={authContext}>
+      <NavigationContainer>
+        {userToken ? (
+          <ListStack.Navigator
+            screenOptions={({route}) => ({
+              tabBarIcon: null,
+              headerShown: false,
+            })}>
+            <ListStack.Screen name="ListItems" component={ListItems} />
+            <ListStack.Screen name="ItemDetails" component={ItemDetails} />
+            <ListStack.Screen name="EditItem" component={EditItem} />
+            <ListStack.Screen name="Profile" component={Profile} />
+          </ListStack.Navigator>
+        ) : (
+          <AuthStack.Navigator
+            screenOptions={() => ({
+              headerShown: false,
+            })}>
+            <AuthStack.Screen name="Login" component={Login} />
+          </AuthStack.Navigator>
+        )}
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 };
 

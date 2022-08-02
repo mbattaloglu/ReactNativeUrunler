@@ -5,10 +5,9 @@ import Items from './Items';
 import Header from './Header';
 import CustomButton from './CustomButton';
 
-const { STATE } = require( "./State");
+const {STATE} = require('./State');
 
 const ListItems = ({navigation}) => {
-
   let ACTUAL_STATE = STATE.DEFAULT;
 
   const [searchPhrase, setSearchPhrase] = useState('');
@@ -20,7 +19,7 @@ const ListItems = ({navigation}) => {
     fetch('https://dummyjson.com/products')
       .then(res => res.json())
       .then(res => setProducts(res.products));
-      fetch('https://dummyjson.com/products')
+    fetch('https://dummyjson.com/products')
       .then(res => res.json())
       .then(res => setDefaultProducts(res.products));
   }, [products]);
@@ -102,17 +101,13 @@ const ListItems = ({navigation}) => {
     }
   };
 
-  
-  useEffect(() => {
-    const loggedIn = false;
-    if (!loggedIn) {
-      navigation.navigate('Login');
-    }
-  }, []);
-
   return (
     <View style={styles.body}>
       <Header title={'Items'} />
+      <CustomButton
+        title={'Profil'}
+        onClickHandler={() => navigation.navigate('Profile')}
+      />
       <View style={styles.buttonBox}>
         <CustomButton
           boxStyle={styles.button}

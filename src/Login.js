@@ -1,13 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {StyleSheet, Text, TextInput, View, Image} from 'react-native';
 import CustomButton from './CustomButton';
 import Header from './Header';
 
+import {AuthContext} from './Context';
+
 const Login = ({navigation}) => {
+  const {signIn} = useContext(AuthContext);
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorText, setErrorText] = useState('');
-  const [products, setProduts] = useState([]);
 
   const loginHandler = async () => {
     const res = await fetch('https://dummyjson.com/auth/login', {
@@ -22,12 +25,14 @@ const Login = ({navigation}) => {
     if (json.message) {
       setErrorText('Yanlış kullanıcı adı veya şifre');
     } else {
-      navigation.navigate('ListItems');
+      signIn({token: json.token});
+      global.userId = json.id;
+      console.log('Login success');
     }
   };
   return (
     <View style={styles.body}>
-      <Header title={"Giriş Yap"}/>
+      <Header title={'Giriş Yap'} />
       <View>
         <TextInput
           style={styles.input}
@@ -59,7 +64,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 20,
     marginRight: 20,
-    paddingLeft : 10
+    paddingLeft: 10,
   },
   title: {
     marginTop: 20,
