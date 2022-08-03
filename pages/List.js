@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { View, Text, FlatList, TextInput, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, FlatList, TextInput, StyleSheet } from "react-native";
 
 import InfoBox from "../components/InfoBox";
 import IconButton from "../components/IconButton";

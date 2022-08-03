@@ -5,9 +5,7 @@ import { LineBox } from "../components/LineBox";
 
 import { AuthContext } from "../Context";
 
-import { Icons, info, UserInfo } from "../components/Constants";
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Icons, UserInfo } from "../components/Constants";
 
 const Profile = ({ navigation }) => {
 

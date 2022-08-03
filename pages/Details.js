@@ -5,11 +5,12 @@ import MyButton from "../components/MyButton";
 
 const Details = ({ navigation, route }) => {
 
-    const { item } = route.params;
+    const { item } = route.params;// Gets values from other Screen
 
     return (
         <View style={styles.container}>
-            {/* Header */}
+
+            {/* Header Line */}
             <View style={styles.headerLine}>
                 <View style={{ alignItems: 'center' }}>
                     <Image
@@ -28,11 +29,10 @@ const Details = ({ navigation, route }) => {
                         <Text style={styles.countPrice}>{parseInt(item.price * (100 - item.discountPercentage) / 100)}$</Text>
                     </View>
                 </View>
-
             </View>
 
-            {/* Other */}
-            <View style={styles.otherLine}>
+            {/* Middle Line */}
+            <View style={styles.middleLine}>
                 <Texts main={"Brand           :"} text={item.brand} />
                 <Texts main={"Category     :"} text={item.category} />
                 <Texts main={"Stock           :"} text={item.stock} />
@@ -41,7 +41,7 @@ const Details = ({ navigation, route }) => {
                     addscroll={{ height: 100, borderRadius: 10, borderLeftWidth: 1, borderRightWidth: 1 }} />
             </View>
 
-            {/* Buttons */}
+            {/* Buttons Line */}
             <View style={styles.buttonsLine}>
                 <MyButton text={"Delete"}
                     boxStyle={{ height: 50 }}
@@ -72,7 +72,10 @@ const Details = ({ navigation, route }) => {
 const Texts = ({ main, text, addstyle, addscroll }) => {
     return (
         <View style={{ flexDirection: 'row', marginBottom: 20 }}>
+            {/* Main Text */}
             <Text style={styles.textsMain}>{main} </Text>
+            
+            {/* Descriotion */}
             <ScrollView style={addscroll}>
                 <Text style={[styles.textsText, addstyle]}>{text}</Text>
             </ScrollView>
@@ -135,7 +138,7 @@ const styles = StyleSheet.create({
         height: 1,
         width: 150
     },
-    otherLine: {
+    middleLine: {
         height: 300,
         marginBottom: 25,
 

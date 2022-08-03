@@ -7,7 +7,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 
-import { Icons, ThemeColors } from './Constants';
+import { Icons } from './Constants';
 
 const InfoBox = ({ itemName, price, discount, logo, command }) => {
     return (

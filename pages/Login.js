@@ -7,9 +7,11 @@ import { ThemeColors, Icons } from '../components/Constants';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Login = ({ navigation }) => {
+const Login = () => {
 
+  const { signIn } = useContext(AuthContext);
 
+  //#region Get username and password from AsyncStorage
   const Load = async () => {
     try {
       const v_username = await AsyncStorage.getItem('username');
@@ -26,17 +28,16 @@ const Login = ({ navigation }) => {
   useEffect(() => {
     Load();
   }, [])
+  //#endregion
 
   const [isRemembered, setIsRemembered] = useState(false);
-
-  const { signIn } = useContext(AuthContext)
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorText, setErrorText] = useState('');
 
   const loginHandler = async () => {
 
+    //#region Check user's inputs
     const res = await fetch('https://dummyjson.com/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -62,18 +63,26 @@ const Login = ({ navigation }) => {
       signIn({ user: json });
       console.log('Correct');
     }
+    //#endregion
+
   };
   return (
     <View style={styles.body}>
+
+      {/* Header Title */}
       <Text style={styles.title}>Login</Text>
+
+      {/* Error */}
       <Text style={styles.errorInfo}>{errorText}</Text>
-      <View>
-        <TextInput
-          style={styles.input}
-          placeholder="Username"
-          placeholderTextColor='#858585'
-          onChangeText={value => setUsername(value)}>{username}</TextInput>
-      </View>
+
+      {/* Username */}
+      <TextInput
+        style={styles.input}
+        placeholder="Username"
+        placeholderTextColor='#858585'
+        onChangeText={value => setUsername(value)}>{username}</TextInput>
+
+      {/* Password */}
       <TextInput
         style={styles.input}
         placeholder="Password"
@@ -81,10 +90,10 @@ const Login = ({ navigation }) => {
         secureTextEntry
         onChangeText={value => setPassword(value)}>{password}</TextInput>
 
-      <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5, marginTop: 10 }}>
+      {/* <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5, marginTop: 10 }}> */}
 
         <TouchableOpacity
-        style={{flexDirection:'row'}}
+          style={{ flexDirection: 'row' }}
           onPress={() => setIsRemembered(!isRemembered)}
         >
           <View style={styles.checkBox}>
@@ -101,7 +110,7 @@ const Login = ({ navigation }) => {
         </TouchableOpacity>
 
 
-      </View>
+      {/* </View> */}
 
       <View style={{ marginTop: 10, alignItems: 'flex-end' }}>
         <MyButton text={'Login'} command={loginHandler} />

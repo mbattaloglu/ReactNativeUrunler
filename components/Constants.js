@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 import ExitIcon from '../icons/logout.png';
 import RightIcon from '../icons/right-arrow.png'
 

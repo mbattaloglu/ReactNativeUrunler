@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { StyleSheet, Text, View, Image, BackHandler } from "react-native";
+import { Text, View, Image } from "react-native";
+import { Icons, UserInfo, ThemeColors } from './components/Constants';
+import { AuthContext } from './Context'
 
 //#region Navigation-Import
 import { NavigationContainer } from "@react-navigation/native";
@@ -17,12 +19,7 @@ import NewProduct from "./pages/NewProduct";
 import ProfileDetails from "./pages/ProfileDetails";
 //#endregion
 
-import { AuthContext } from './Context'
-import { Icons, UserInfo, ThemeColors } from './components/Constants';
-
-//import AsyncStorage from "@react-native-async-storage/async-storage";
-
-
+//#region Loading Screen
 function Splash() {
   return (
     <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
@@ -30,10 +27,13 @@ function Splash() {
     </View>
   )
 }
+//#endregion
+
+//#region Stacks on "LIST" Page
 
 const ListStack = createNativeStackNavigator();
 
-const ListStackScreen = () => {// Liste erkanı yığınları
+const ListStackScreen = () => {
   return (
     <ListStack.Navigator screenOptions={() => ({
       headerTitleAlign: 'center',
@@ -77,7 +77,9 @@ const ListStackScreen = () => {// Liste erkanı yığınları
     </ListStack.Navigator>
   )
 }
+//#endregion
 
+//#region Stack on "PROFILE" Page
 const ProfileStack = createNativeStackNavigator();
 
 const ProfileStackScreen = () => {
@@ -107,16 +109,19 @@ const ProfileStackScreen = () => {
     </ProfileStack.Navigator>
   )
 }
+//#endregion
 
 const MainTab = createBottomTabNavigator();
 
 const AuthStack = createNativeStackNavigator();
 
-const App = ({ navigation }) => {
+const App = () => {
 
+  // Values
   const [isLoading, setIsLoading] = useState(true);
   const [userToken, setUserToken] = useState("");
 
+  //#region Auth Functions
   const authContext = useMemo(() => {
     return {
       signIn: ({ user }) => {
@@ -130,6 +135,7 @@ const App = ({ navigation }) => {
       }
     }
   }, [])
+  //#endregion
 
   useEffect(() => {
     setTimeout(() => {
@@ -144,9 +150,9 @@ const App = ({ navigation }) => {
   return (
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
-        {userToken ? (
+        {userToken ? ( // Open Main Menu
           <MainTab.Navigator screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, size }) => {
+            tabBarIcon: ({ focused, size }) => { //Tab Bar
               let iconName;
               let rn = route.name;
               let color;
@@ -174,13 +180,13 @@ const App = ({ navigation }) => {
               component={ListStackScreen}
               options={{ title: 'List' }}
             />
-            <MainTab.Screen 
-            name={"ProfileStackScreen"} 
-            component={ProfileStackScreen}
-            options={{ title: 'Profile' }}
+            <MainTab.Screen
+              name={"ProfileStackScreen"}
+              component={ProfileStackScreen}
+              options={{ title: 'Profile' }}
             />
           </MainTab.Navigator>
-        ) : (
+        ) : ( // Open Login Screen
           <AuthStack.Navigator screenOptions={() => ({
             headerShown: false,
           })}>
@@ -191,13 +197,5 @@ const App = ({ navigation }) => {
     </AuthContext.Provider>
   );
 };
-
-const stiller = StyleSheet.create({
-  genel: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
-})
 
 export default App;
